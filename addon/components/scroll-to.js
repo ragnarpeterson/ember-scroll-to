@@ -1,7 +1,6 @@
 import Em from 'ember';
 
 var DURATION = 750;
-
 var EASING = 'swing';
 
 export default Em.Component.extend({
@@ -11,20 +10,20 @@ export default Em.Component.extend({
   easing: EASING,
   attributeBindings: ['href'],
 
-  scrollable: function() {
+  scrollable: Em.computed(function() {
     return Em.$('html, body');
-  }.property(),
+  }),
 
-  target: function() {
+  target: Em.computed('href', function() {
     return Em.$(this.get('href')).offset().top;
-  }.property('href'),
+  }),
 
-  scroll: function(evt) {
+  scroll: Em.on('click', function(evt) {
     evt.stopPropagation();
     evt.preventDefault();
 
     this.get('scrollable').animate({
       scrollTop: this.get('target')
     }, this.get('duration'), this.get('easing'));
-  }.on('click')
+  })
 });
