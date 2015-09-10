@@ -18,3 +18,9 @@ In your template:
 {{!-- or --}}
 {{#scroll-to href='#faq'}}FAQ{{/scroll-to}}
 ```
+
+If you want to perfom some action after scroll:
+
+```hbs
+{{scroll-to href='#faq' afterScroll='customAction'}}
+```
