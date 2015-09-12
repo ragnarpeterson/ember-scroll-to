@@ -15,7 +15,13 @@ export default Em.Component.extend({
   }),
 
   target: Em.computed('href', function() {
-    return Em.$(this.get('href')).offset().top;
+    const elem = Em.$(this.get('href'));
+    if (!elem) {
+      Em.Logger.warn(`element ${this.get('href')} couldn\'t be found`);
+      return;
+    }
+    
+    return elem.offset().top;
   }),
 
   scroll: Em.on('click', function(evt) {
