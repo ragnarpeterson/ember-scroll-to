@@ -1,13 +1,15 @@
 import Em from 'ember';
 
-var DURATION = 750;
-var EASING = 'swing';
+const DURATION = 750;
+const EASING = 'swing';
+const OFFSET = 0;
 
 export default Em.Component.extend({
   tagName: 'a',
   href: null,
   duration: DURATION,
   easing: EASING,
+  offset: OFFSET,
   attributeBindings: ['href'],
 
   scrollable: Em.computed(function() {
@@ -20,8 +22,8 @@ export default Em.Component.extend({
       Em.Logger.warn(`element ${this.get('href')} couldn\'t be found`);
       return;
     }
-    
-    return elem.offset().top;
+
+    return elem.offset().top + this.get('offset');
   }),
 
   scroll: Em.on('click', function(evt) {
