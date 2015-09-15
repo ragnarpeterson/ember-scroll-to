@@ -30,6 +30,6 @@ export default Em.Component.extend({
 
     this.get('scrollable').animate({
       scrollTop: this.get('target')
-    }, this.get('duration'), this.get('easing'));
+    }, this.get('duration'), this.get('easing'), Em.run.bind(this, this.sendAction, 'afterScroll'));
   })
 });
