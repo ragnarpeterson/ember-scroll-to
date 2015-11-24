@@ -1,22 +1,33 @@
 # ember-scroll-to
 
-Animated scrolling to a specified id.
+Animated vertical scrolling to a specified id.
+
 
 ## Installation
 
+From within your ember-cli project directory: 
+
 ```bash
-# From within your ember-cli project
 ember install ember-scroll-to
 ```
 
-## Usage
+
+## The component
+
+The `{{scroll-to}}` creates an `<a>` element that, when clicked, scrolls to the specified selector.
 
 In your template:
 
 ```hbs
 {{scroll-to href='#faq' label='FAQ'}}
-{{!-- or --}}
-{{#scroll-to href='#faq'}}FAQ{{/scroll-to}}
+```
+
+You can also use the block form:
+
+```hbs
+{{#scroll-to href='#faq'}}
+  FAQ
+{{/scroll-to}}
 ```
 
 If you want to perform some action after scroll:
@@ -25,30 +36,48 @@ If you want to perform some action after scroll:
 {{scroll-to href='#faq' afterScroll='customAction'}}
 ```
 
-## Options
+The component accepts the following options
 
-### Duration
-Number of milliseconds for the transition to occur over. Default is 750ms.
-
-Example usage:
-```hbs
-{{scroll-to href='#faq' label='FAQ' duration=1000}}
-```
-
-### Easing
-The jQuery animate transition to use. Default is 'swing'. With a standard setup,
+* `href` -- (required) a selector of an element to scroll to on click.
+* `label` -- text to display on the component. Ignored when used in a block form.
+* `duration` -- number of milliseconds for the transition to occur over. Default is 750ms.
+* `easing` -- the jQuery animate transition to use. Default is 'swing'. With a standard setup,
 you could also use 'linear'. If you want more, check out [jQuery UI](http://jqueryui.com/).
-
-Example usage:
-```hbs
-{{scroll-to href='#faq' label='FAQ' easing='linear'}}
-```
-
-### Offset
-An optional offset. The most common use case for this is if you have a fixed header
+* `offset` -- An optional offset. The most common use case for this is if you have a fixed header
 that you need to account for.
 
-Example usage (with a 60px tall fixed header):
+Example usage with all options at once:
+
 ```hbs
-{{scroll-to href='#faq' label='FAQ' offset=-60}}
+{{scroll-to
+  href='#faq'
+  label='FAQ'
+  duration=1000
+  easing='linear'
+  offset=-60
+}}
 ```
+
+
+## Service
+
+You can also invoke scrolling programmatically. To do so, inject the `scroller` service into your object:
+
+```js
+scroller: Ember.inject.service()
+```
+
+Then you can use the `scrollVertical` method on it:
+
+```
+this.get('scroller').scrollVertical(target, options);
+```
+
+`target` can be anything that jQuery accepts (selector, element, jQuery collection...).
+
+`options` is a hash with any of the following key-value pairs (all optional):
+
+* `offset`
+* `duration`
+* `easing`
+* `complete` -- a callback to execute once the scrolling animation is complete.
