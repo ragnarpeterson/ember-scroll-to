@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.3.1
+## 0.5.0
+- Abstract scrolling logic into service [\#15](https://github.com/jasonkriss/ember-scroll-to/pull/15) ([lolmaus](https://github.com/lolmaus))
+
+## 0.4.0
 - Provide optional offset parameter.
 
   You might want to use this if you have a fixed
