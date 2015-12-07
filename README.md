@@ -81,3 +81,18 @@ this.get('scroller').scrollVertical(target, options);
 * `duration`
 * `easing`
 * `complete` -- a callback to execute once the scrolling animation is complete.
+
+## Configuration
+Some frameworks - like Google's Material Design Lite - will use a custom DOM structure to wrap the main content (e.g. for facilitating responsive design, modal overlays). For use in such environments, you'll want to override the default scrollable element (`html, body`) with the container element that should be used by the service to set the vertical scroll position. To do so, extend the service:
+```javascript
+// app/services/scroller.js
+import Ember from 'ember';
+import Scroller from 'ember-scroll-to/services/scroller';
+
+export default Scroller.extend({
+  scrollable: Ember.computed(function() {
+    return Ember.$('main.mdl-layout__content');
+  })
+});
+```
+Where in this example `main.mdl-layout__content` is the content container of the page for Material Design Lite. Inspect your DOM to find the main element if scrolling is not working.
