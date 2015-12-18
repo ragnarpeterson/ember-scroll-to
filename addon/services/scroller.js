@@ -35,7 +35,7 @@ export default Em.Service.extend({
     return jQueryElement.offset().top + offset;
   },
 
-  scrollVertical (target, opts) {
+  scrollVertical (target, opts = {}) {
     this.get('scrollable').animate({
       scrollTop: this.getVerticalCoord(target, opts.offset)
     },
