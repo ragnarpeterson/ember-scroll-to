@@ -1,6 +1,6 @@
 {
   "name": "ember-scroll-to",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Animated scrolling to a specified id.",
   "directories": {
     "doc": "doc",
