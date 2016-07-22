@@ -1,7 +1,10 @@
 # Changelog
 
+## 0.5.3
+- Fix component template association [\#24](https://github.com/jasonkriss/ember-scroll-to/pull/24) ([jacefarm](https://github.com/jacefarm))
+
 ## 0.5.2
-- Ember CLI Upgrade [\#22](https://github.com/jasonkriss/ember-scroll-to/pull/18) ([blimmer](https://github.com/blimmer))
+- Ember CLI Upgrade [\#22](https://github.com/jasonkriss/ember-scroll-to/pull/22) ([blimmer](https://github.com/blimmer))
 
 ## 0.5.1
 - Added default param value for `scrollVertical` [\#18](https://github.com/jasonkriss/ember-scroll-to/pull/18) ([corrspt](https://github.com/corrspt))
