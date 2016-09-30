@@ -37,7 +37,7 @@ export default Em.Service.extend({
 
   scrollVertical (target, opts = {}) {
     this.get('scrollable').animate({
-      scrollTop: this.getVerticalCoord(target, opts.offset)
+      scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
     },
       opts.duration || this.get('duration'),
       opts.easing   || this.get('easing'),
