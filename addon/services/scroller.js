@@ -38,19 +38,18 @@ export default Em.Service.extend({
   },
 
   scrollVertical (target, opts = {}) {
-    return new RSVP.Promise((resolve) => {
-      this.get('scrollable').animate({
-          scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
-        },
-        opts.duration || this.get('duration'),
-        opts.easing   || this.get('easing'),
-        function() {
-          if (typeof opts.complete === 'function') {
-            opts.complete.apply(this, arguments);
-          }
-          resolve();
-        }
-      );
+    return new RSVP.Promise((resolve, reject) => {
+      this.get('scrollable')
+        .animate(
+          {
+            scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
+          },
+          opts.duration || this.get('duration'),
+          opts.easing || this.get('easing'),
+          opts.complete
+        )
+        .promise()
+        .then(resolve, reject);
     });
   }
 });
