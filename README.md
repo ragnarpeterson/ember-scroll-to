@@ -82,6 +82,8 @@ this.get('scroller').scrollVertical(target, options);
 * `easing`
 * `complete` -- a callback to execute once the scrolling animation is complete.
 
+The method returns a Promise that will resolve as soon as the animation has completed.
+
 ## Configuration
 Some frameworks - like Google's Material Design Lite - will use a custom DOM structure to wrap the main content (e.g. for facilitating responsive design, modal overlays). For use in such environments, you'll want to override the default scrollable element (`html, body`) with the container element that should be used by the service to set the vertical scroll position. To do so, extend the service:
 ```javascript

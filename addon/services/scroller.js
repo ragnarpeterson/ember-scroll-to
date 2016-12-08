@@ -4,6 +4,8 @@ const DURATION = 750;
 const EASING   = 'swing';
 const OFFSET   = 0;
 
+const { RSVP } = Em;
+
 export default Em.Service.extend({
 
   // ----- Static properties -----
@@ -36,12 +38,18 @@ export default Em.Service.extend({
   },
 
   scrollVertical (target, opts = {}) {
-    this.get('scrollable').animate({
-      scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
-    },
-      opts.duration || this.get('duration'),
-      opts.easing   || this.get('easing'),
-      opts.complete
-    );
+    return new RSVP.Promise((resolve, reject) => {
+      this.get('scrollable')
+        .animate(
+          {
+            scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
+          },
+          opts.duration || this.get('duration'),
+          opts.easing || this.get('easing'),
+          opts.complete
+        )
+        .promise()
+        .then(resolve, reject);
+    });
   }
 });
