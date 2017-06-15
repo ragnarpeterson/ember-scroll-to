@@ -45,6 +45,7 @@ The component accepts the following options
 you could also use 'linear'. If you want more, check out [jQuery UI](http://jqueryui.com/).
 * `offset` -- An optional offset. The most common use case for this is if you have a fixed header
 that you need to account for.
+* `direction` -- 'vertical' or 'horizontal'. Vertical by default.
 
 Example usage with all options at once:
 
@@ -55,6 +56,7 @@ Example usage with all options at once:
   duration=1000
   easing='linear'
   offset=-60
+  direction='vertical'
 }}
 ```
 
@@ -67,10 +69,10 @@ You can also invoke scrolling programmatically. To do so, inject the `scroller` 
 scroller: Ember.inject.service()
 ```
 
-Then you can use the `scrollVertical` method on it:
+Then you can use the `scrollElement` method on it:
 
 ```
-this.get('scroller').scrollVertical(target, options);
+this.get('scroller').scrollElement(target, options);
 ```
 
 `target` can be anything that jQuery accepts (selector, element, jQuery collection...).
@@ -80,6 +82,7 @@ this.get('scroller').scrollVertical(target, options);
 * `offset`
 * `duration`
 * `easing`
+* `direction`
 * `complete` -- a callback to execute once the scrolling animation is complete.
 
 The method returns a Promise that will resolve as soon as the animation has completed.
