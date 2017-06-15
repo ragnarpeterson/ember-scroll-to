@@ -36,20 +36,42 @@ export default Em.Service.extend({
     const  jQueryElement = this.getJQueryElement(target);
     return jQueryElement.offset().top + offset;
   },
+  
+  getHorizontalCoord(target, offset = 0) {
+		const jQueryElement = this.getJQueryElement(target);
+		return jQueryElement.offset().left + offset;
+	},
 
-  scrollVertical (target, opts = {}) {
-    return new RSVP.Promise((resolve, reject) => {
-      this.get('scrollable')
-        .animate(
-          {
-            scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
-          },
-          opts.duration || this.get('duration'),
-          opts.easing || this.get('easing'),
-          opts.complete
-        )
-        .promise()
-        .then(resolve, reject);
-    });
-  }
+  scrollElement(target, opts = {}) {
+		return new RSVP.Promise((resolve, reject) => {
+
+			var scrollAnimation = {};
+			if(opts.direction === 'horizontal') {
+				scrollAnimation.scrollLeft =  this.get('scrollable').scrollLeft() - this.get('scrollable').offset().left + this.getHorizontalCoord(target, opts.offset);
+			} else {
+				scrollAnimation.scrollTop = this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset);
+			}
+			
+			this.get('scrollable')
+				.animate(scrollAnimation,
+					opts.duration || this.get('duration'),
+					opts.easing || this.get('easing'),
+					opts.complete
+				)
+				.promise()
+				.then(resolve, reject);
+		});
+	},
+  
+  // Keep existing scrollVertical() for backwards compatibility
+	scrollVertical(target, opts = {}) {
+		// Vertical by default
+		return this.scrollElement(target,opts);
+	},
+	
+	scrollHorizontal(target, opts = {}) {
+		// Set direction to horizontal
+		opts.direction = 'horizontal';
+		return this.scrollElement(target,opts);
+	}
 });

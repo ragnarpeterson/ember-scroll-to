@@ -8,7 +8,7 @@ export default Em.Component.extend({
   duration: undefined,
   easing:   undefined,
   offset:   undefined,
-
+  direction: undefined,
 
   // ----- Overridden properties -----
   tagName:           'a',
@@ -36,10 +36,11 @@ export default Em.Component.extend({
 
     this
       .get('scroller')
-      .scrollVertical(this.get('jQueryElement'), {
+      .scrollElement(this.get('jQueryElement'), {
         duration: this.get('duration'),
         offset:   this.get('offset'),
         easing:   this.get('easing'),
+        direction: this.get('direction'),
         complete: () => Em.run(this, this.sendAction, 'afterScroll')
       });
   })
