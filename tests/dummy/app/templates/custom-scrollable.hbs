@@ -1,0 +1,54 @@
+<h2>This demonstrates when the scrollable is not the body</h2>
+
+<div style='position: fixed; top: 40px; right: 40px; color: black; background-color: lightGrey; padding: 5px;'>
+  <h3 style='color: black;'>Scroll Nav Menu</h3>
+  <div>
+    {{#scroll-to-custom-scrollable href='#position-1'}}
+    Position 1
+    {{/scroll-to-custom-scrollable}}
+  </div>
+
+  <div>
+    {{#scroll-to-custom-scrollable href='#position-2'}}
+    Position 2
+    {{/scroll-to-custom-scrollable}}
+  </div>
+
+  <div>
+    {{#scroll-to-custom-scrollable href='#position-3'}}
+    Position 3
+    {{/scroll-to-custom-scrollable}}
+  </div>
+</div>
+
+<div id='scrollable-container' style='overflow-y: auto; height: 800px; width: 200px; border: 1px solid lime;'>
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+
+  <div id='position-1' style='height: 400px; background-color: lime;'>
+    Position 1 scroll destination
+  </div>
+
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+
+  <div id='position-2' style='height: 400px; background-color: lime;'>
+    Position 2 scroll destination
+  </div>
+
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+
+  <div id='position-3' style='height: 400px; background-color: lime;'>
+    Position 3 scroll destination
+  </div>
+
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+  <div class='spacer' style='height: 400px;'></div>
+</div>
+
+{{outlet}}

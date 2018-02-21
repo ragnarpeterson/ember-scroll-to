@@ -32,17 +32,29 @@ export default Em.Service.extend({
     return jQueryElement;
   },
 
+  getScrollableTop () {
+    // because the target elements top is calculated relative to the document,
+    // and if the scrollable container is not the document,
+    // we need to normalize the target elements top based on the top and current scrolled position of the scrollable
+    if (this.get('scrollable').offset().top) {
+      return this.get('scrollable').scrollTop() - this.get('scrollable').offset().top;
+    } else {
+      return 0;
+    }
+  },
+
   getVerticalCoord (target, offset = 0) {
     const  jQueryElement = this.getJQueryElement(target);
-    return jQueryElement.offset().top + offset;
+    return this.getScrollableTop() + jQueryElement.offset().top + offset;
   },
 
   scrollVertical (target, opts = {}) {
     return new RSVP.Promise((resolve, reject) => {
+
       this.get('scrollable')
         .animate(
           {
-            scrollTop: this.get('scrollable').scrollTop() - this.get('scrollable').offset().top + this.getVerticalCoord(target, opts.offset)
+            scrollTop: this.getVerticalCoord(target, opts.offset)
           },
           opts.duration || this.get('duration'),
           opts.easing || this.get('easing'),
