@@ -34,13 +34,16 @@ export default Em.Component.extend({
     evt.stopPropagation();
     evt.preventDefault();
 
-    this
-      .get('scroller')
-      .scrollVertical(this.get('jQueryElement'), {
-        duration: this.get('duration'),
-        offset:   this.get('offset'),
-        easing:   this.get('easing'),
-        complete: () => Em.run(this, this.sendAction, 'afterScroll')
-      });
+    this.sendAction('beforeScroll');
+    Em.run.next(()=>{
+      this
+        .get('scroller')
+        .scrollVertical(this.get('jQueryElement'), {
+          duration: this.get('duration'),
+          offset:   this.get('offset'),
+          easing:   this.get('easing'),
+          complete: () => Em.run(this, this.sendAction, 'afterScroll')
+        });
+    });
   })
 });
