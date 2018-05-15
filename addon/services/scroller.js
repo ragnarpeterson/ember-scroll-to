@@ -24,7 +24,7 @@ export default Em.Service.extend({
   getJQueryElement (target) {
     const jQueryElement = Em.$(target);
 
-    if (!jQueryElement) {
+    if (Em.isEmpty(jQueryElement)) {
       Em.Logger.warn("element couldn't be found:", target);
       return;
     }
