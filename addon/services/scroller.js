@@ -19,6 +19,10 @@ export default Em.Service.extend({
     return Em.$('html, body');
   }),
 
+  scrollableIsDocument: Em.computed('scrollable', function() {
+    return Em.$('html, body')[0] === this.get('scrollable')[0];
+  }),
+
 
   // ----- Methods -----
   getJQueryElement (target) {
@@ -32,20 +36,26 @@ export default Em.Service.extend({
     return jQueryElement;
   },
 
-  getScrollableTop () {
-    // because the target elements top is calculated relative to the document,
-    // and if the scrollable container is not the document,
-    // we need to normalize the target elements top based on the top and current scrolled position of the scrollable
-    if (this.get('scrollable').offset().top) {
-      return this.get('scrollable').scrollTop() - this.get('scrollable').offset().top;
+  getVerticalCoord (target, offset = 0) {
+    const jQueryElement = this.getJQueryElement(target);
+
+    if (this.get('scrollableIsDocument')) {
+      // when scrolling the document, scroll directly to the target element's top
+      return jQueryElement.offset().top + offset;
     } else {
-      return 0;
+      // when scrolling a custom scrollable element:
+      // (1) subtract the scrollable offset from top of the page
+      // (2) add the current scrollTop for scrollable
+      return this.getElementTop(jQueryElement) + this.get('scrollable').scrollTop() - this.getElementTop(this.get('scrollable')) + offset;
     }
   },
 
-  getVerticalCoord (target, offset = 0) {
-    const  jQueryElement = this.getJQueryElement(target);
-    return this.getScrollableTop() + jQueryElement.offset().top + offset;
+  getElementTop($element) {
+    // Top is relative to the document. To get the math right,
+    // revert any scale applied to the element (by ember test container for example)
+    let element = $element[0];
+    let scaleMultiplier = 1 / (element.getBoundingClientRect().height / element.offsetHeight);
+    return scaleMultiplier * $element.offset().top;
   },
 
   scrollVertical (target, opts = {}) {

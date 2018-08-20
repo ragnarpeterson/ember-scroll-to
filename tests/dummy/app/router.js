@@ -8,7 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('simple');
-  this.route('customScrollable');
+  this.route('custom-scrollable');
 });
 
 export default Router;
